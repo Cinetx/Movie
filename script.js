@@ -1,27 +1,5 @@
-/* Задание на урок:
-
-1) Создать переменную numberOfFilms и в неё поместить ответ от пользователя на вопрос:
-'Сколько фильмов вы уже посмотрели?'
-
-2) Создать объект personalMovieDB и в него поместить такие свойства:
-    - count - сюда передается ответ на первый вопрос
-    - movies - в это свойство поместить пустой объект
-    - actors - тоже поместить пустой объект
-    - genres - сюда поместить пустой массив
-    - privat - в это свойство поместить boolean(логическое) значение false
-
-3) Задайте пользователю по два раза вопросы:
-    - 'Один из последних просмотренных фильмов?'
-    - 'На сколько оцените его?'
-Ответы стоит поместить в отдельные переменные
-Записать ответы в объект movies в формате: 
-    movies: {
-        'logan': '8.1'
-    }
-
-Проверить, чтобы все работало без ошибок в консоли */
-
 'use strict';
+
 let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
 let personalMovieDB = {
@@ -33,12 +11,28 @@ let personalMovieDB = {
         privat : false
     };
 
-    let a = prompt('Один из последних просмотренных фильмов?', ''),
-        b = prompt('На сколько оцените его?', ''),
-        c = prompt('Один из последних просмотренных фильмов?', ''),
-        d = prompt('На сколько оцените его?', '');
-   
-personalMovieDB.movies[a] = b;
-personalMovieDB.movies[c] = d;
+// Вывод сообщения в зависимости от кол-во просмотренных фильмов
+if (personalMovieDB.count < 10) {
+    alert('Просмотренно довольно мало фильмов');
+    console.log('2')
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
+    alert('Вы классический зритель');
+    console.log('1')
+} else if (personalMovieDB.count >= 50) {
+    alert('Вы киноман');
+} else {
+    console.log('Произошла ошибка')
+}
 
-console.log(personalMovieDB.movies);
+// Задает вопросы, ограничение в вводе символов или пустой строки
+for (let i = 0; i < 2; i++) {
+    let question1 = prompt('Один из последних просмотренных фильмов?', ''),
+        question2 = prompt('На сколько оцените его?', '');
+    
+    if (question1 != null && question2 != null && question1 != '' && question2 != '' && question1.length < 50 && question2.length < 50) {
+        personalMovieDB.movies[question1] = question2;
+    } else {
+        i--;
+    }
+}
+
